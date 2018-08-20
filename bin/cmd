@@ -1,0 +1,11 @@
+// 初始化项目
+weexbox create hello-world
+
+// 启动调试
+weexbox serve
+weexbox serve MyComponent
+
+// 构建
+weexbox build
+
+// 
