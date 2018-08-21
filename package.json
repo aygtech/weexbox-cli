@@ -1,5 +1,5 @@
 {
-  "name": "weexbox",
+  "name": "@weexbox/cli",
   "version": "0.0.1",
   "description": "weexbox cli",
   "bin": {

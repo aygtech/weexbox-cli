@@ -1,11 +1,17 @@
-// 初始化项目
-weexbox create hello-world
+// 创建一个新项目
+weexbox create <app-name>
 
-// 启动调试
+// 在开发者模式下以零配置运行一个vue文件
 weexbox serve
-weexbox serve MyComponent
+weexbox serve [entry]
 
-// 构建
+// 在生产模式下以零配置构建vue文件
 weexbox build
 
-// 
+// 帮助
+weexbox -help
+weexbox -h
+
+// 版本
+weexbox -version
+weexbox -v
