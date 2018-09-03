@@ -1,7 +1,7 @@
 {
-  "name": "@weexbox/cli",
+  "name": "@weexbox/hot-update",
   "version": "0.0.1",
-  "description": "weexbox cli",
+  "description": "weexbox hot update",
   "bin": {
     "weexbox-update": "./bin/update.js",
     "weexbox-static": "./bin/static.js"
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/aiyuangong/weexbox"
+    "url": "https://github.com/WeexBox/cli"
   },
   "keywords": [
     "weexbox",
@@ -30,7 +30,7 @@
     "prompt": "^1.0.0",
     "q": "^1.5.1",
     "recursive-readdir": "^2.2.2",
-    "time-stamp": "^2.0.1",
-    "yargs": "^12.0.1"
+    "time-stamp": "^2.1.0",
+    "commander": "^2.17.1"
   }
 }

@@ -4,6 +4,7 @@ weexbox create <app-name>
 // 在开发者模式下以零配置运行一个vue文件
 weexbox serve
 weexbox serve [entry]
+weex debug c://xxx.vue
 
 // 在生产模式下以零配置构建vue文件
 weexbox build

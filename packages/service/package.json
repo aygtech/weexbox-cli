@@ -1,0 +1,26 @@
+{
+  "name": "@weexbox/service",
+  "version": "0.0.1",
+  "description": "weexbox hot update",
+  "bin": {
+    "weexbox-service": "bin/weexbox-service"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WeexBox/cli"
+  },
+  "keywords": [
+    "weexbox",
+    "weex",
+    "hot",
+    "update"
+  ],
+  "author": "myeveryheart@qq.com",
+  "license": "MIT",
+  "dependencies": {
+    "minimist": "^1.2.0"
+  }
+}
