@@ -15,14 +15,17 @@ program
 program
   .command('update')
   .description('生成 热更新包')
-  .action()
+  .action(() => {
+    const update = require('../lib/update')
+    update.execute()
+  })
 
   program
-  .command('android')
-  .description('热更新包 拷贝到 Android')
-  .action()
+  .command('copy')
+  .description('热更新包 拷贝到 Android 和 iOS')
+  .action(() => {
+    const copy = require('../lib/copy')
+    copy.execute()
+  })
 
-  program
-  .command('ios')
-  .description('热更新包 拷贝到 iOS')
-  .action()
+  program.parse(process.argv)

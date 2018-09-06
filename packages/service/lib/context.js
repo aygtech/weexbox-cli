@@ -2,16 +2,17 @@ const path = require('path')
 const fs = require('fs-extra')
 const _ = require('lodash')
 
-const ignoreFileName = 'weexbox-ignore.txt'
-const configFileName = 'weexbox-config.json'
-const md5FileName = 'weexbox-md5.json'
+const ignoreFileName = 'update-ignore.txt'
+const configFileName = 'update-config.json'
+const md5FileName = 'update-md5.json'
 const defaultIgnoreList = ['.DS_Store', md5FileName, configFileName, '.gitignore', '.gitkeep', '.git']
 
-function csContext(argv) {
-    const homePath = path.join(process.cwd(), argv[1])
+function csContext() {
+    const homePath = path.join(process.cwd(), 'deploy')
     const wwwFolderPath = path.join(homePath, 'www')
-    const ignoreFilePath = path.join(homePath, ignoreFileName)
-    const defaultConfigFilePath = path.join(homePath, configFileName)
+    const configPath = path.join(process.cwd(), 'config')
+    const ignoreFilePath = path.join(configPath, ignoreFileName)
+    const defaultConfigFilePath = path.join(configPath, configFileName)
     const configFilePath = path.join(wwwFolderPath, configFileName)
     const md5FilePath = path.join(wwwFolderPath, md5FileName)
 

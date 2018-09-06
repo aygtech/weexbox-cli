@@ -1,9 +1,9 @@
 {
   "name": "@weexbox/service",
-  "version": "0.0.1",
-  "description": "weexbox hot update",
+  "version": "0.0.4",
+  "description": "weexbox service",
   "bin": {
-    "weexbox-service": "bin/weexbox-service"
+    "weexbox-service": "./bin/weexbox-service.js"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -21,6 +21,14 @@
   "author": "myeveryheart@qq.com",
   "license": "MIT",
   "dependencies": {
-    "minimist": "^1.2.0"
+    "adm-zip": "^0.4.11",
+    "async": "^2.6.1",
+    "fs-extra": "^7.0.0",
+    "hidefile": "^2.0.0",
+    "lodash": "^4.17.10",
+    "q": "^1.5.1",
+    "recursive-readdir": "^2.2.2",
+    "time-stamp": "^2.1.0",
+    "commander": "^2.17.1"
   }
 }
