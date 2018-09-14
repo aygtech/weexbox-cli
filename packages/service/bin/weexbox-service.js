@@ -16,7 +16,7 @@ program
   .command('update')
   .description('生成 热更新包')
   .action(() => {
-    const update = require('../lib/update')
+    const update = require('../lib/hot-update/update')
     update.execute()
   })
 
@@ -24,7 +24,7 @@ program
   .command('copy')
   .description('热更新包 拷贝到 Android 和 iOS')
   .action(() => {
-    const copy = require('../lib/copy')
+    const copy = require('../lib/hot-update/copy')
     copy.execute()
   })
 
