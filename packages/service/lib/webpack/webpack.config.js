@@ -1,3 +1,4 @@
+const path = require('path')
 const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
@@ -5,10 +6,10 @@ const config = require('./config')
 const helper = require('./helper')
 const vueLoaderConfig = require('./vue-loader.conf')
 const utils = require('./utils')
-const weexboxConfig = require(config.weexboxConfigPath)
+const weexboxConfig = require(helper.projectPath(config.weexboxConfig))
 
 const plugins = [
-  new CleanWebpackPlugin(helper.rootNode(config.delpoyDir), {
+  new CleanWebpackPlugin(helper.projectPath(config.delpoyDir), {
     root: path.resolve('/'),
     verbose: true
   }),
@@ -25,21 +26,18 @@ const plugins = [
 const weexConfig = {
   entry: utils.getEntries(),
   output: {
-    path: helper.rootNode(config.distDir),
+    path: helper.projectPath(config.distDir),
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
-      '@': helper.resolve('src')
-    }
+    extensions: ['.js', '.vue', '.json']
   },
   module: {
     rules: [
       {
         test: /\.(js|vue)$/,
         enforce: 'pre',
-        include: [helper.resolve(config.sourceDir)],
+        include: [helper.projectPath(config.sourceDir)],
         loader: 'eslint-loader',
         options: {
           formatter: require('eslint-friendly-formatter')
@@ -53,7 +51,7 @@ const weexConfig = {
             options: {
               publicPath: weexboxConfig.imagePublicPath,
               name: '[name]_[hash].[ext]',
-              outputPath: helper.resolve(config.staticDic)
+              outputPath: helper.projectPath(config.staticDic)
             }
           }
         ]

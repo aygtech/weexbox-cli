@@ -1,5 +1,4 @@
 const utils = require('./utils')
-const config = require('./config')
 
 module.exports = (options) => {
   return {

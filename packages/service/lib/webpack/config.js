@@ -1,10 +1,5 @@
-const path = require('path')
-
-const ROOT = path.resolve(__dirname, '..')
-
 const config = {
-  root: ROOT,
-  weexboxConfigPath: path.join(process.cwd(), 'config/weexbox-config.js'),
+  weexboxConfig: 'config/weexbox-config.js',
   sourceDir: 'src',
   delpoyDir: 'deploy',
   distDir: 'deploy/www',

@@ -70,7 +70,7 @@ exports.styleLoaders = function (options) {
 // 通过glob模块读取pages文件夹下的所有对应文件夹下的js后缀文件，如果该文件存在
 // 那么就作为入口处理
 exports.getEntries = function (target) {
-  const pagePath = helper.rootNode(config.sourceDir)
+  const pagePath = helper.projectPath(config.sourceDir)
   return entries(`${pagePath  }/*/*/index.js`, target)
 }
 
