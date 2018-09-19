@@ -10,7 +10,10 @@ program
 program
   .command('build')
   .description('打包')
-  .action()
+  .action(() => {
+    const build = require('../lib/webpack/build')
+    build.execute()
+  })
 
 program
   .command('update')
