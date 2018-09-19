@@ -3,7 +3,7 @@ const config = {
   sourceDir: 'src',
   delpoyDir: 'deploy',
   distDir: 'deploy/www',
-  staticDic: 'deploy/static',
+  staticDir: '../static',
   excludeModuleReg: /node_modules(?!(\/|\\).*(weex).*)/,
   nodeConfiguration: {
     global: false,

@@ -51,7 +51,7 @@ const weexConfig = {
             options: {
               publicPath: weexboxConfig.imagePublicPath,
               name: '[name]_[hash].[ext]',
-              outputPath: helper.projectPath(config.staticDic)
+              outputPath: config.staticDir
             }
           }
         ]
