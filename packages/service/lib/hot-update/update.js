@@ -33,9 +33,9 @@ function execute() {
           if (err) {
             return console.log(err)
           }
-          console.log(`已生成 config 文件`)
-          console.log(`目录： ${csContext.wwwFolderPath}`)
-          console.log(`版本： ${config.release}`)
+          // console.log(`已生成 config 文件`)
+          // console.log(`目录： ${csContext.wwwFolderPath}`)
+          // console.log(`版本： ${config.release}`)
           executeDfd.resolve(config)
         })
       })

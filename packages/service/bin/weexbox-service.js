@@ -9,7 +9,7 @@ program
 
 program
   .command('build')
-  .description('打包')
+  .description('编译')
   .action(() => {
     const build = require('../lib/webpack/build')
     build.execute()

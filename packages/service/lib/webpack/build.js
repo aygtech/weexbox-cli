@@ -7,10 +7,13 @@ function execute() {
       stats.toString({
         colors: true,
         modules: false,
-        children: false,
-        chunks: false,
-        chunkModules: false,
-        
+        warnings: false,
+        entrypoints: false,
+        assets: false,
+        hash: false,
+        version: false,
+        timings: false,
+        builtAt: false
       })
     )
   })
