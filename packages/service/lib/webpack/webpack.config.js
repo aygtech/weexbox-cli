@@ -24,6 +24,7 @@ const plugins = [
 ]
 
 const weexConfig = {
+  mode: 'none',
   entry: utils.getEntries(),
   output: {
     path: helper.projectPath(config.distDir),
