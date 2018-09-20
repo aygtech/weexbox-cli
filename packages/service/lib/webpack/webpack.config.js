@@ -10,7 +10,10 @@ const utils = require('./utils')
 const weexboxConfig = require(helper.projectPath(config.weexboxConfig))
 
 const plugins = [
-  new WebpackBar(),
+  new WebpackBar({
+    name: "WeexBox",
+    profile: true
+  }),
   new CleanWebpackPlugin(helper.projectPath(config.delpoyDir), {
     root: path.resolve('/'),
     verbose: true
