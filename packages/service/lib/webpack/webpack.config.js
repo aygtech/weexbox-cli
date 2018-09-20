@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const WebpackBar = require('webpackbar')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const config = require('./config')
@@ -9,6 +10,7 @@ const utils = require('./utils')
 const weexboxConfig = require(helper.projectPath(config.weexboxConfig))
 
 const plugins = [
+  new WebpackBar(),
   new CleanWebpackPlugin(helper.projectPath(config.delpoyDir), {
     root: path.resolve('/'),
     verbose: true
