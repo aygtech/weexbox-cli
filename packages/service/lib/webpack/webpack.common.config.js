@@ -1,7 +1,5 @@
 const path = require('path')
-const webpack = require('webpack')
 const WebpackBar = require('webpackbar')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const config = require('./config')
 const helper = require('./helper')
@@ -11,20 +9,12 @@ const weexboxConfig = require(helper.projectPath(config.weexboxConfig))
 
 const plugins = [
   new WebpackBar({
-    name: "WeexBox",
+    name: 'WeexBox',
     profile: true
   }),
   new CleanWebpackPlugin(helper.projectPath(config.delpoyDir), {
     root: path.resolve('/'),
     verbose: true
-  }),
-  new UglifyJsPlugin({
-    parallel: true
-  }),
-  new webpack.BannerPlugin({
-    banner: '// { "framework": "Vue"} \n',
-    raw: true,
-    exclude: 'Vue'
   })
 ]
 

@@ -1,7 +1,7 @@
 const webpack = require('webpack')
-const webpackConfig = require('./webpack.config')
 
-function execute() {
+function execute(name) {
+  const webpackConfig = require(`./webpack.${name}.config`)
   webpack(webpackConfig, (err, stats) => {
     process.stdout.write(
       stats.toString({
