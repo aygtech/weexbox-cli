@@ -1,6 +1,6 @@
 {
   "name": "@weexbox/service",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "weexbox service",
   "bin": {
     "weexbox-service": "./bin/weexbox-service.js"
@@ -21,7 +21,7 @@
   "author": "myeveryheart@qq.com",
   "license": "MIT",
   "dependencies": {
-    "@weexbox/debugger": "0.1.5",
+    "@weexbox/debugger": "0.1.6",
     "adm-zip": "^0.4.11",
     "async": "^2.6.1",
     "fs-extra": "^7.0.0",
