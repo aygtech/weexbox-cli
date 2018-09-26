@@ -21,8 +21,9 @@ function create(projectName) {
     console.error(chalk.red(`Target directory ${chalk.cyan(targetDir)} already exists.`))
     process.exit(1)
   }
+  console.log('Wait a moment')
   download('WeexBox/template', targetDir, function(err) {
-    console.log(err ? err : 'WeexBox init success!')
+    console.log(err ? err : `${projectName} is created!`)
   })
 }
 
