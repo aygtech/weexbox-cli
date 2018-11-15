@@ -1,16 +1,24 @@
 {
   "name": "@weexbox/cli",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "weexbox init cli",
   "bin": {
     "weexbox": "./bin/weexbox-cli.js"
   },
   "author": "myeveryheart@qq.com",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aygtech/weexbox-cli.git"
+  },
+  "keywords": [
+    "weexbox",
+    "weex"
+  ],
   "dependencies": {
-    "commander": "^2.18.0",
+    "commander": "^2.19.0",
     "download-git-repo": "^1.1.0",
-    "fs-extra": "^7.0.0",
+    "fs-extra": "^7.0.1",
     "validate-npm-package-name": "^3.0.0",
     "chalk": "^2.4.1"
   }
