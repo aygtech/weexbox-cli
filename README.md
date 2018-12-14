@@ -1,4 +1,4 @@
-WeexBox项目初始化工具 https://weexbox.surge.sh/guide/#weexbox-cli
+WeexBox 项目初始化工具 https://aygtech.github.io/weexbox/guide/#weexbox-cli
 
 # 介绍
 
