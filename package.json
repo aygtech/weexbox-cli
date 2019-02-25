@@ -1,6 +1,6 @@
 {
   "name": "@weexbox/cli",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "weexbox init cli",
   "bin": {
     "weexbox": "./bin/weexbox-cli.js"
@@ -20,6 +20,6 @@
     "download-git-repo": "^1.1.0",
     "fs-extra": "^7.0.1",
     "validate-npm-package-name": "^3.0.0",
-    "chalk": "^2.4.1"
+    "chalk": "^2.4.2"
   }
 }
