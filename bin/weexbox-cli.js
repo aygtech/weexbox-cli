@@ -8,7 +8,7 @@ program
   .command('create <projectName>')
   .description('使用 weexbox 创建工程')
   .action((projectName) => {
-    require('../lib/index')(projectName)
+    require('../built/create').Create(projectName)
   })
 
 program.parse(process.argv)
