@@ -19,7 +19,7 @@ program
   .command('doctor')
   .description('检查')
   .action(() => {
-    let spinner = logger.spin(`Verify iOS and Android environment ...`)
+    console.log('Verify iOS and Android environment ...')
     const doctor = new Doctor()
     console.log(doctor.diagnose())
   })
