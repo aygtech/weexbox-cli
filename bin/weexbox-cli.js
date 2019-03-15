@@ -2,7 +2,7 @@
 const program = require('commander')
 const fs = require('fs-extra')
 const path = require('path')
-const { Create } = require('../lib/create/create')
+const { Create } = require('../lib/create')
 const { Doctor } = require('../lib/doctor')
 
 program
