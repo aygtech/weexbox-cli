@@ -5,7 +5,7 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "outDir": "./lib",
-    "target": "es6"
+    "target": "esnext"
   },
   "include": [
     "src/**/*"
