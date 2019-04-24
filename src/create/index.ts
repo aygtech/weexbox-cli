@@ -2,8 +2,8 @@ import { resolve } from 'path'
 import { existsSync } from 'fs-extra'
 import chalk from 'chalk'
 import ora from 'ora'
-import validateProjectName = require('validate-npm-package-name');
-import download = require('download-git-repo');
+import validateProjectName = require('validate-npm-package-name')
+import download = require('download-git-repo')
 
 export class Create {
   constructor(projectName: string) {
