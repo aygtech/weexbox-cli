@@ -4,6 +4,26 @@ WeexBox 项目初始化工具 https://aygtech.github.io/weexbox/guide/#weexbox-c
 
 WeexBox 致力于打造一套简单、高效的基于 [weex](https://weex-project.io/cn/) 的APP混合开发解决方案。
 
+# 安装
+
+```
+npm install -g @weexbox/cli
+```
+# 使用
+1. 快速创建 weex 项目
+
+  ```
+  weexbox create <projectName>
+  ```
+
+1. 快速创建页面
+
+  ```
+  weexbox page <pageName> --template <template_dir>
+  ```
+
+** 更多命令详情可通过``` weexbox -h```快速查看 **
+
 ## 开发 WeexBox 的初衷
 
 weex给了vue开发者一条全新的道路，让前端开发者在APP中大放异彩。  
