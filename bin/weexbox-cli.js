@@ -14,8 +14,8 @@ program
  
 program
   .command('page <pageNmae>')
-  .description('在 src 目录下创建页面，支持多级路径，如：weexbox page class1/page')
-  .option('-t, --template <template>', '自定义模板文件所在目录')
+  .description('在 src 目录下快速创建页面，支持多级路径，示例：weexbox page  personCenter/profile')
+  .option('-t, --template <template_dir>', '自定义模板文件所在目录')
   .action((pageName, options) => {
     lib.createPage(pageName, options.template)
   })  
