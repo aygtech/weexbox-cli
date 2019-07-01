@@ -23,7 +23,7 @@ export class Create {
       console.error(chalk.red(`Target directory ${chalk.cyan(targetDir)} already exists.`))
       process.exit(1)
     }
-    const spinner = ora('正在从https://github.com/aygtech/weexbox-template下载模板\n如果您的网络不好，可以手动下载').start()
+    const spinner = ora('正在从 https://github.com/aygtech/weexbox-template 下载模板\n如果您的网络不好，可以手动下载').start()
     download('aygtech/weexbox-template', targetDir, (err) => {
       spinner.stop()
       console.log(err ? err : `${projectName} is created!`)
