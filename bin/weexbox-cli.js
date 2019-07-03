@@ -24,13 +24,4 @@ program
     console.log(doctor.diagnose())
   })
 
-program
-.command('page <pageName>')
-.description('快速创建页面')
-.option('-t, --template <tempalte_dir>', '自定义页面模板路径')
-.action(( pageName, options) => {
-  console.log(options);
-  Create.createPage(pageName, options.template)
-})
-
 program.parse(process.argv)
