@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { existsSync } from 'fs-extra'
+import { existsSync, access,writeFile,readFile,ensureDir, constants, copy } from 'fs-extra'
 import chalk from 'chalk'
 import ora from 'ora'
 import validateProjectName = require('validate-npm-package-name')
@@ -35,25 +35,34 @@ export class Create {
     })
   }
 
-  static async createPage(pageName: string, templatePath: string) {
-    // try {
-    //   await fs.access('./src', fs.constants.R_OK|fs.constants.W_OK)
+  /**
+   * 根据模板创建页面
+   * @param pageName 页面名称，支持带多级路径
+   * @param templatePath 模板文件目录，不传使用内置默认模板
+   */
+  static async createPage(pageName: string, templatePath?: string) {
+    try {
+      await access('./src', constants.R_OK|constants.W_OK)
   
-    //   const pagePath = path.resolve(process.cwd(), 'src', pageName)
-    //   try {
-    //     await fs.access(pagePath)
-    //     console.log(chalk.red(`页面: ${pageName}在 src 目录中已存在，请修改页面名称`))
-    //   } catch(e) {
-    //     await fs.mkdir(pagePath, {recursive: true})
+      const pagePath = resolve(process.cwd(), 'src', pageName)
+      try {
+        await access(pagePath)
+        console.log(chalk.red(`页面: ${pageName}在 src 目录中已存在，请修改页面名称`))
+      } catch(e) {
+        await ensureDir(pagePath)
   
-    //     const templateDir = templatePath ? templatePath : path.resolve(__dirname, '../../template')
-    //     await fs.writeFile(path.resolve(pagePath, 'index.js'), await fs.readFile(path.resolve(templateDir, 'index.js')))
-    //     await fs.writeFile(path.resolve(pagePath, 'App.vue'), await fs.readFile(path.resolve(templateDir, 'App.vue')))
-    //     console.log(chalk.cyan('页面创建成功，路径：')+ chalk.green(`${pagePath}`));
-    //   }
-    // } catch(e) {
-    //   console.log(chalk.red(`页面创建过程出错：${e}`))
-    // }
+        let templateDir = ''
+        if (templatePath) {
+          templateDir = resolve(process.cwd(), templatePath)
+        } else {
+          templateDir = resolve(__dirname, '../../template')
+        }
+        await copy(templateDir, pagePath, {recursive: true})
+        console.log(chalk.cyan('页面创建成功，路径：')+ chalk.green(`${pagePath}`));
+      }
+    } catch(e) {
+      console.log(chalk.red(`页面创建过程出错：${e}`))
+    }
   
   }
 }
