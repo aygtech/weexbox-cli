@@ -19,7 +19,7 @@ program
   .command('doctor')
   .description('检查')
   .action(() => {
-    console.log('Verify iOS and Android environment ...')
+    console.log('检查环境中 ...')
     const doctor = new Doctor()
     console.log(doctor.diagnose())
   })
