@@ -1,6 +1,6 @@
 {
   "name": "@weexbox/cli",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "weexbox init cli",
   "bin": {
     "weexbox": "./bin/weexbox-cli.js"
