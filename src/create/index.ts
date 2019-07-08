@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { existsSync, access,writeFile,readFile,ensureDir, constants, copy } from 'fs-extra'
+import { existsSync, access, ensureDir, constants, copy } from 'fs-extra'
 import chalk from 'chalk'
 import ora from 'ora'
 import validateProjectName = require('validate-npm-package-name')
@@ -26,7 +26,7 @@ export class Create {
     }
     let templatePath = 'aygtech/weexbox-template'
     if (options.flutter) {
-      templatePath += '/tree/flutter'
+      templatePath += '#flutter'
     }
     const spinner = ora(`正在从 https://github.com/${templatePath} 下载模板\n如果您的网络不好，可以手动下载`).start()
     download(templatePath, targetDir, (err) => {
