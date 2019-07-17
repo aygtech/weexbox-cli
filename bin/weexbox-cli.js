@@ -4,6 +4,7 @@ const fs = require('fs-extra')
 const path = require('path')
 const { Create } = require('../lib/create')
 const { Doctor } = require('../lib/doctor')
+const { Refimg } = require('../lib/refimg')
 
 program
   .version(fs.readJsonSync(path.join(__dirname, '../package.json')).version, '-v, --version')
@@ -31,6 +32,14 @@ program
   .option('-t, --template <template_dir>', '自定义模板文件所在目录')
   .action((pageName, options) => {
     Create.createPage(pageName, options.template)
-  })  
+  })
+program
+  .command('refimg')
+  .description('刷新flutter图片配置')
+  .action(() => {
+    Refimg.start()
+    // const doctor = new Doctor()
+    // console.log(doctor.diagnose())
+  })   
 
 program.parse(process.argv)
