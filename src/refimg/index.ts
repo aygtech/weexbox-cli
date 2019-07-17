@@ -6,10 +6,7 @@ export class Refimg {
    static imagesDir:string
    static flutterPubspecName:string
    static start(){
-
-    this.setConfigPath()
-
-    const pathIsOK = this.setConfigPath()
+   const pathIsOK = this.setConfigPath()
     if (pathIsOK ===  true) {
       readdir(this.imagesDir, (_, files) => {
         this.clean(this.flutterPubspecName, (ret) => {
