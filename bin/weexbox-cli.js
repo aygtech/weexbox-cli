@@ -34,12 +34,9 @@ program
     Create.createPage(pageName, options.template)
   })
 program
-  .command('refimg')
-  .description('刷新flutter图片配置')
-  .action(() => {
-    Refimg.start()
-    // const doctor = new Doctor()
-    // console.log(doctor.diagnose())
+  .command('refimg [path]')
+  .description('刷新flutter图片配置; 可选参数  weex refimg d   默认生成【./lib/util/image_path_config.dart】  weex refimg ./lib/src/custom.dart  【生成自定义文件】')
+  .action((path) => {
+    Refimg.start(path)
   })   
-
 program.parse(process.argv)

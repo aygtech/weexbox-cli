@@ -1,22 +1,110 @@
 import { readdir, createReadStream, writeFile, pathExistsSync } from 'fs-extra'
 import { createInterface } from 'readline'
-
+import {Generate} from './generate'
 export class Refimg {
   // 图片路径
   static imagesDir: string
+  // 配置文件名称
   static flutterPubspecName: string
-  static start() {
+  // model名称
+  static modelName: string
+  // dart文件路径
+  static dartPath: string
+  // 图片数组
+  static imageNames: any[]
+  static  start(path) {
     const pathIsOK = this.setConfigPath()
     if (pathIsOK === true) {
-      readdir(this.imagesDir, (_, files) => {
-        this.clean(this.flutterPubspecName, (ret) => {
-          this.outPut(ret, files)
-        })
+      this.dartPath = path
+      this.synImageConfig()
+    } else {
+      console.log('\x1B[31m%s\x1B[0m', 'error:请检查当前目录是否存在images，pubspec.yaml')
+    }
+  }
+
+  // 同步图片配置
+  static synImageConfig()  {
+    this.readdirImage(this.imagesDir).then(images => {
+      this.imageNames = images
+      return this.writeImageForConfig(images, this.flutterPubspecName)
+    }).then(conetnt => {
+      this.updateConfig(this.flutterPubspecName, conetnt)
+    })
+  }
+  // 更新配置文件。
+  static updateConfig(config: string, content: string) {
+    writeFile(config, content, 'utf8', (error) => {
+      if (error) {
+        console.log('\x1B[31m%s\x1B[0m', 'error: ' + error + '\n')
+      } else {
+        console.log('\x1B[36m%s\x1B[0m', 'succeed: images目录的图片已同步到pubspec.yaml\n')
+        this.createModel()
+      }
+    })
+  }
+  // 生成model
+  static createModel() {
+    if (this.dartPath !== undefined) {
+      this.dartPath = this.dartPath === 'd' ? './lib/util/image_path_config.dart' : this.dartPath
+      Generate.start(this.dartPath, this.imageNames)
+    }
+  }
+  // 图片写入配置。
+  static writeImageForConfig(files: any[], configPath: string) {
+    return new Promise<string>(reslove => {
+      const rl = createInterface({
+        input: createReadStream(configPath),
       })
-    }
-    else {
-      console.log('请检查当前目录是否存在images和pubspec.yaml')
-    }
+      // 是否可添加
+      let canAdd = true
+      // 任务执行中。
+      let tasking = false
+      const lines = []
+      rl.on('line', (line) => {
+        // 找到 assets 标识,开始插入新的图片。
+        if (this.lineIsAssets(line)) {
+          canAdd = false
+          tasking = true
+          // 当前行是assets需要加入。
+          lines.push(line)
+          // 加入新的图片
+          files.forEach(file => {
+            const newfile = `     - images/${file}`
+            lines.push(newfile)
+          })
+        }
+        // 任务已经开始且当前行是#时，过滤任务结束。
+        if (tasking === true && line.indexOf('#') !== -1) {
+          tasking = false
+          canAdd = true
+        }
+        if (canAdd === true) {
+          lines.push(line)
+        }
+      })
+      // 任务结束
+      rl.on('close', () => {
+        reslove(lines.join('\n'))
+      })
+    })
+  }
+  // 获取文件夹下的图片。
+  static readdirImage(dir: string) {
+    return new Promise<any[]>(reslove => {
+      readdir(dir, (_, files) => {
+        reslove(this.getImageFiles(files))
+      })
+    })
+  }
+  // 确保文件夹内是图片。
+  static getImageFiles(files) {
+    const images = []
+    files.forEach(file => {
+      if (file.indexOf('.png') !== -1 || file.indexOf('.jpg') !== -1) {
+        images.push(file)
+      }
+    })
+    return images
   }
   // 设置路径
   static setConfigPath() {
@@ -26,59 +114,8 @@ export class Refimg {
     const hasPub = pathExistsSync(this.flutterPubspecName)
     return hasDir && hasPub
   }
-  static clean(fileName, callBack) {
-    const rl = createInterface({
-      input: createReadStream(fileName),
-    })
-    // 是否可添加
-    let canAdd = true
-    // 任务执行中。
-    let tasking = false
-    const lines = []
-    rl.on('line', (line) => {
-      if (this.lineIsAssets(line)) {
-        canAdd = false
-        tasking = true
-        // 当前行需要加入。
-        lines.push(line)
-      }
-      // 任务已经开始且当前行是#时，可以继续执行。
-      if (tasking === true && line.indexOf('#') !== -1) {
-        tasking = false
-        canAdd = true
-      }
-      if (canAdd === true) {
-        lines.push(line)
-      }
-    })
-    // 任务结束
-    rl.on('close', () => {
-      callBack(lines)
-    })
-
-  }
+  // 当前行是 assets
   static lineIsAssets(line) {
-    return (line.indexOf('assets:') !== -1 && line.indexOf('#') === -1)
-  }
-  // 合并数组后输出到yaml
-  static outPut(ary1, ary2) {
-    const newLines = []
-    ary1.forEach((line) => {
-      newLines.push(line)
-      if (this.lineIsAssets(line)) {
-        ary2.forEach((line2) => {
-          const newLine2 = `        - images/${line2}`
-          newLines.push(newLine2)
-        })
-      }
-    })
-    const newContent = newLines.join('\n')
-    writeFile(this.flutterPubspecName, newContent, 'utf8', (error) => {
-      if (error) {
-        console.log('同步异常--------', error)
-      } else {
-        console.log('图片同步成功')
-      }
-    })
+    return(line.indexOf('assets:') !== -1 && line.indexOf('#') === -1)
   }
 }
