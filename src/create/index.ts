@@ -42,15 +42,15 @@ export class Create {
    */
   static async createPage(pageName: string, templatePath?: string) {
     try {
-      await access('./src', constants.R_OK|constants.W_OK)
-  
+      await access('./src', constants.R_OK | constants.W_OK)
+
       const pagePath = resolve(process.cwd(), 'src', pageName)
       try {
         await access(pagePath)
         console.log(chalk.red(`页面: ${pageName}在 src 目录中已存在，请修改页面名称`))
-      } catch(e) {
+      } catch (e) {
         await ensureDir(pagePath)
-  
+
         let templateDir = ''
         if (templatePath) {
           templateDir = resolve(process.cwd(), templatePath)
@@ -58,11 +58,11 @@ export class Create {
           templateDir = resolve(__dirname, '../../template')
         }
         await copy(templateDir, pagePath, {recursive: true})
-        console.log(chalk.cyan('页面创建成功，路径：')+ chalk.green(`${pagePath}`));
+        console.log(chalk.cyan('页面创建成功，路径：') + chalk.green(`${pagePath}`))
       }
-    } catch(e) {
+    } catch (e) {
       console.log(chalk.red(`页面创建过程出错：${e}`))
     }
-  
+
   }
 }

@@ -18,7 +18,7 @@ export class Refimg {
       this.dartPath = path
       this.synImageConfig()
     } else {
-      console.log('\x1B[31m%s\x1B[0m', 'error:请检查当前目录是否存在images，pubspec.yaml')
+      console.log('\x1B[31m%s\x1B[0m', 'error:请检查当前目录是否存在images，pubspec.yaml\n')
     }
   }
 
@@ -28,18 +28,22 @@ export class Refimg {
       this.imageNames = images
       return this.writeImageForConfig(images, this.flutterPubspecName)
     }).then(conetnt => {
-      this.updateConfig(this.flutterPubspecName, conetnt)
+      return this.updateConfig(this.flutterPubspecName, conetnt)
+    }).then(_ => {
+      this.createModel()
     })
   }
   // 更新配置文件。
   static updateConfig(config: string, content: string) {
-    writeFile(config, content, 'utf8', (error) => {
-      if (error) {
-        console.log('\x1B[31m%s\x1B[0m', 'error: ' + error + '\n')
-      } else {
-        console.log('\x1B[36m%s\x1B[0m', 'succeed: images目录的图片已同步到pubspec.yaml\n')
-        this.createModel()
-      }
+    return new Promise<any>(reslove => {
+      writeFile(config, content, 'utf8', (error) => {
+        if (error) {
+          console.log('\x1B[31m%s\x1B[0m', 'error: ' + error + '\n')
+        } else {
+          console.log('\x1B[36m%s\x1B[0m', 'succeed: images目录的图片已同步到pubspec.yaml\n')
+          reslove()
+        }
+      })
     })
   }
   // 生成model
