@@ -1,8 +1,8 @@
-import { readdir, createReadStream, writeFile, pathExistsSync } from 'fs-extra'
+import { readdir, createReadStream, writeFile, pathExistsSync, existsSync, readdirSync, statSync } from 'fs-extra'
 import { createInterface } from 'readline'
-import {Generate} from './generate'
+import { Generate } from './generate'
 export class Refimg {
-  // 图片路径
+  // 图片目录
   static imagesDir: string
   // 配置文件名称
   static flutterPubspecName: string
@@ -12,18 +12,18 @@ export class Refimg {
   static dartPath: string
   // 图片数组
   static imageNames: any[]
-  static  start(path) {
+  static start(path) {
     const pathIsOK = this.setConfigPath()
     if (pathIsOK === true) {
       this.dartPath = path
       this.synImageConfig()
     } else {
-      console.log('\x1B[31m%s\x1B[0m', 'error:请检查当前目录是否存在images，pubspec.yaml\n')
+      console.log('\x1B[31m%s\x1B[0m', 'error:请检查工程目录是否存在images，pubspec.yaml\n')
     }
   }
 
   // 同步图片配置
-  static synImageConfig()  {
+  static synImageConfig() {
     this.readdirImage(this.imagesDir).then(images => {
       this.imageNames = images
       return this.writeImageForConfig(images, this.flutterPubspecName)
@@ -49,7 +49,8 @@ export class Refimg {
   // 生成model
   static createModel() {
     if (this.dartPath !== undefined) {
-      this.dartPath = this.dartPath === 'd' ? './lib/util/image_path_config.dart' : this.dartPath
+      const defaultPath = this.flutterPubspecName.replace('pubspec.yaml', '') + 'lib/util/image_path_config.dart'
+      this.dartPath = this.dartPath === 'd' ? defaultPath : this.dartPath
       Generate.start(this.dartPath, this.imageNames)
     }
   }
@@ -112,14 +113,40 @@ export class Refimg {
   }
   // 设置路径
   static setConfigPath() {
-    this.imagesDir = './images'
-    this.flutterPubspecName = 'pubspec.yaml'
+    this.convenientDir('.')
     const hasDir = pathExistsSync(this.imagesDir)
     const hasPub = pathExistsSync(this.flutterPubspecName)
     return hasDir && hasPub
   }
+  // 便利文件夹
+  static convenientDir(path) {
+    let imagesDirPath = null
+    let pubFilePath = null
+    if (existsSync(path) === true) {
+      const files = readdirSync(path)
+      for (const file of files) {
+        const currentPath = path + '/' + file
+        // 配置文件
+        if (currentPath.indexOf('pubspec.yaml') !== -1 && pubFilePath === null) {
+          pubFilePath = currentPath
+          this.flutterPubspecName = pubFilePath
+        }
+        // 图片路径
+        if (currentPath.indexOf('images') !== -1 && statSync(currentPath).isDirectory() === true && imagesDirPath === null ) {
+          imagesDirPath = currentPath
+          this.imagesDir = imagesDirPath
+        }
+        if (statSync(currentPath).isDirectory() === true && currentPath.indexOf('node_modules') === -1
+          && currentPath.indexOf('git') === -1
+          && currentPath.indexOf('.ios') === -1
+          && currentPath.indexOf('.android') === -1) {
+          this.convenientDir(currentPath)
+        }
+      }
+    }
+  }
   // 当前行是 assets
   static lineIsAssets(line) {
-    return(line.indexOf('assets:') !== -1 && line.indexOf('#') === -1)
+    return (line.indexOf('assets:') !== -1 && line.indexOf('#') === -1)
   }
 }
